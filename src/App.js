@@ -5,16 +5,23 @@ import { Item } from "./components/Item";
 import { Column } from "./components/Column";
 
 const reducer = (state, e) => {
+  // if the value is empty and there is a field in the state
+  // we remove the field
   if (!e.target.value && state[e.target.name]) {
     let current = { ...state };
     delete current[e.target.name];
     return current;
+
+    // if there is no field in the state
+    // we add the field with the current value
+    // and push the new empty field at the end of the state
   } else if (!state[e.target.name] && e.target.value)
     return {
       ...state,
       [e.target.name]: e.target.value,
       [Date.now()]: "",
     };
+  // we only update the field current value
   else
     return {
       ...state,
@@ -22,6 +29,7 @@ const reducer = (state, e) => {
     };
 };
 
+// the initial state for both is one empty field
 const initialState = {
   [Date.now()]: "",
 };
